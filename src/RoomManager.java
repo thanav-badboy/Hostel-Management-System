@@ -235,4 +235,12 @@ public class RoomManager implements RoomService {
         Room room = searchByRoomId(roomId);
         return room.getAllocatedStudents();
     }
+
+    @Override
+    public String findRoomByStudentId(String studentId) {
+        if (studentId == null || !activeAllocatedStudents.contains(studentId.trim().toUpperCase())) {
+            return null;
+        }
+        return RoomService.super.findRoomByStudentId(studentId);
+    }
 }
