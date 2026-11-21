@@ -65,4 +65,30 @@ public class StudentIntegrationHelper {
         System.out.println("  (Note: Any ID matching pattern 'STU###' is also accepted as a valid test ID)");
         System.out.println("------------------------------------------------------------------------------------");
     }
+
+    /**
+     * Validates student ID against Member 1's live StudentService if available.
+     * Fallback to mock roster if service instance is null.
+     */
+    public static boolean isStudentRegistered(String studentId, com.hostel.student.service.StudentService service) {
+        if (service != null) {
+            return service.existsById(studentId);
+        }
+        return isValidStudentId(studentId);
+    }
+
+    /**
+     * Retrieves live student name and course from StudentService if present.
+     */
+    public static String getLiveStudentDetails(String studentId, com.hostel.student.service.StudentService service) {
+        if (service != null) {
+            try {
+                com.hostel.student.model.Student s = service.getStudentById(studentId);
+                return s.getName() + " (" + s.getCourse() + ")";
+            } catch (com.hostel.student.exception.StudentNotFoundException ignored) {
+                return "Unregistered Student (" + studentId + ")";
+            }
+        }
+        return getStudentDisplayName(studentId);
+    }
 }
