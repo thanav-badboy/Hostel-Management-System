@@ -139,3 +139,36 @@ When demonstrating to your faculty or examiner:
 6. **Option 5:** Vacate `STU101` from `R101`. Show that room status resets to `Available`.
 7. **Option 6:** Show Allocation Details & Audit logs.
 8. **Option 7:** Show Member 1 Integration contract.
+
+---
+
+## 🌐 8. Unified System Architecture & Master Execution Guide
+
+With the integration of **Member 1 (Student Management Module)** and **Member 2 (Room Management Module)**, the College Hostel Management System operates as an interconnected multi-module ecosystem.
+
+### A. Master Console Entry Point (`UnifiedHostelApp`)
+To launch the integrated multi-module dashboard:
+```powershell
+# Using the automated build and run scripts:
+.\build.bat
+.\run.bat
+
+# Or manually:
+javac -d bin (Get-ChildItem -Recurse -Filter *.java src).FullName
+java -cp bin UnifiedHostelApp
+```
+
+### B. Master Automated Verification Suite
+Run all unit and integration tests across both modules in one command:
+```powershell
+java -cp bin MasterTestSuite
+```
+This automatically verifies:
+1. **Manual Singly Linked List DSA:** Tail insertion, node traversal search, and pointer-relinking deletion.
+2. **Student Management Business Logic:** Unique ID assignment, duplicate prevention, regex input validation, and custom exceptions.
+3. **Cross-Module Student-Room Integration:** Real-time student verification, room allocation, duplicate blocking, and reverse student-to-room searching.
+
+### C. Future Module Integration Hooks
+- **Fee Management (Member 3):** Hooks into `FeeModuleHook` to query student billing records and calculate room rent.
+- **Complaint Management (Member 4):** Hooks into `ComplaintModuleHook` to authenticate resident complainants.
+

@@ -65,4 +65,17 @@ public interface RoomService {
      * Helper check: Determine whether a student currently has an active room allocation.
      */
     boolean isStudentAllocated(String studentId);
+
+    /**
+     * Integration Method: Find the room ID where a specific student is staying.
+     */
+    default String findRoomByStudentId(String studentId) {
+        if (studentId == null) return null;
+        for (Room r : getAllRooms()) {
+            if (r.getAllocatedStudents().contains(studentId.trim().toUpperCase())) {
+                return r.getRoomId();
+            }
+        }
+        return null;
+    }
 }
